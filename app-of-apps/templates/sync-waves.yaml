@@ -1,20 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mysql
+  name: sync-waves
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    {{- .Values.spec.destination | toYaml | nindent 4 }}
+    namespace: sync-waves
+    server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    helm:
-      valueFiles:
-      - values.yaml
-    path: mysql
+    path: sync-waves
     repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: HEAD
-  syncPolicy:
-    {{- .Values.spec.syncPolicy | toYaml | nindent 4 }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
