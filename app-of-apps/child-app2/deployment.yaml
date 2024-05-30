@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: child-app
+        app: child-app2
     spec:
       containers:
       - name: child-app2-nginx
